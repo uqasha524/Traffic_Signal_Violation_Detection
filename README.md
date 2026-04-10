@@ -436,7 +436,7 @@ numpy>=1.24
 | Project | Description | Link |
 |:---:|:---|:---:|
 | ⚡ **PowerGuard AI** | Dual-stage deep learning SCADA for electricity theft detection in Pakistan's power grid | [🤗 Live Demo](https://huggingface.co/spaces/Uqasha/FYP-Electricity_Theft_Detection) |
-| 🕹️ **Action Recognition** | Real-time gaming interface via full-body gestures — 99.69% accuracy | [GitHub]([https://github.com/uqasha524/RealTime-GameActions-UsingLSTM]) |
+| 🕹️ **Action Recognition** | Real-time gaming interface via full-body gestures — 99.69% accuracy | [GitHub](https://github.com/uqasha524/RealTime-GameActions-UsingLSTM) |
 | 👁️ **Facial Attendance** | AI biometric attendance system deployed for 100+ users | [GitHub](https://github.com/uqasha524) |
 
 </div>
