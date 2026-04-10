@@ -53,13 +53,12 @@ A **production-grade, autonomous AI traffic surveillance system** that detects a
 
 <div align="center">
 
-![Violation Demo](assets/violation_demo.svg)
+![Violation Demo](assets/Violation_ScreenShots/violation_vehicle_65_frame158.jpg)
 
 </div>
 
-> 📌 **Replace with your real screenshots** — add actual output images to `assets/` folder:
 > ```markdown
-> ![My Real Output](assets/my_output.jpg)
+> ![My Real Output](assets/Violation_ScreenShots/violation_vehicle_65_frame158.jpg)
 > ```
 
 **Color coding on screen:**
