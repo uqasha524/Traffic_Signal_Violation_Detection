@@ -1,12 +1,12 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=venom&color=0:0d0221,40:ff0040,100:ff8800&height=220&section=header&text=Traffic%20Violation%20Detection&fontSize=42&fontColor=ffffff&fontAlignY=45&desc=🚦%20AI-Powered%20Red-Light%20Violation%20Detection%20System&descSize=20&descAlignY=70&animation=fadeIn" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=venom&color=0:0d0221,40:cc0000,100:ff8800&height=220&section=header&text=Traffic%20Violation%20Detection&fontSize=42&fontColor=ffffff&fontAlignY=45&desc=🚦%20AI-Powered%20Red-Light%20Violation%20Detection%20System&descSize=20&descAlignY=70&animation=fadeIn" width="100%"/>
 
 </div>
 
 <div align="center">
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=18&duration=3000&pause=800&color=FF4500&center=true&vCenter=true&width=800&lines=Autonomous+Red-Light+Violation+Detection+🚗;Multi-Lane+Vehicle+Tracking+with+Unique+IDs;Auto-Generated+Timestamped+Evidence+Reports;YOLO+%2B+DeepSort+%2B+OpenCV+—+Real-Time+AI)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=18&duration=3000&pause=800&color=FF4500&center=true&vCenter=true&width=800&lines=Autonomous+Red-Light+Violation+Detection+🚗;Multi-Lane+Tracking+with+Persistent+Vehicle+IDs;Auto-Generated+Timestamped+Evidence+Screenshots;YOLO+%2B+DeepSort+%2B+OpenCV+—+Real-Time+AI+Surveillance)](https://git.io/typing-svg)
 
 </div>
 
@@ -15,15 +15,14 @@
 ## 📋 Table of Contents
 
 - [Overview](#-overview)
-- [Demo & Screenshots](#-demo--screenshots)
-- [System Architecture](#-system-architecture)
+- [Live Detection Screenshot](#-live-detection-screenshot)
+- [System Pipeline](#-system-pipeline)
 - [How It Works](#-how-it-works)
 - [Features](#-features)
+- [Evidence Screenshots](#-evidence-screenshots)
 - [Pipeline Breakdown](#-pipeline-breakdown)
-- [ROI Selection](#-roi-selection--zebra-crossing-polygon)
-- [Violation Detection Logic](#-violation-detection-logic)
 - [Project Structure](#-project-structure)
-- [Installation & Setup](#-installation--setup)
+- [Installation](#-installation--setup)
 - [How to Run](#-how-to-run)
 - [Technical Details](#-technical-details)
 - [Requirements](#-requirements)
@@ -33,103 +32,72 @@
 
 ## 🎯 Overview
 
-A **production-grade, autonomous traffic surveillance system** that detects and records vehicles running red lights across multiple lanes in real time. The system uses dual **YOLO** deep learning models for traffic light state classification and vehicle detection, combined with **DeepSort multi-object tracking** to assign persistent unique IDs to every vehicle — even during occlusions.
+A **production-grade, autonomous AI traffic surveillance system** that detects and records vehicles running red lights in real time. Using dual **YOLO** models for traffic signal classification and vehicle detection, combined with **DeepSort multi-object tracking**, the system assigns persistent unique IDs to every vehicle — and auto-saves **timestamped screenshot evidence** the moment a violation is detected.
 
-When a vehicle is detected crossing the designated zebra crossing zone during a red signal, the system **automatically captures a timestamped screenshot** as evidence, labeling the vehicle's unique ID.
-
-> **No human operator needed — the AI watches, tracks, and records automatically.**
-
-### 🔑 Key Highlights
+> **No human operator needed — the AI watches, tracks, and records every violation automatically.**
 
 | Feature | Detail |
 |:---|:---|
-| 🚦 **Traffic Light AI** | Custom-trained YOLO model — detects Red, Green, RedRight signals |
-| 🚗 **Vehicle Detection** | Custom YOLO model with confidence threshold 0.15 for dense traffic |
-| 🔁 **Multi-Object Tracking** | DeepSort tracker — persistent IDs across frames & occlusions |
-| 📐 **ROI** | User-defined polygon zone (zebra crossing) via mouse click |
-| 📸 **Evidence** | Auto-saved violation screenshots per unique vehicle ID |
-| 🛣️ **Multi-Lane** | Simultaneous tracking of all vehicles across all lanes |
-| ⚡ **Real-Time** | Frame-by-frame processing at video playback speed |
+| 🚦 **Signal Detection** | Custom YOLO — Red, Green, RedRight signals |
+| 🚗 **Vehicle Tracking** | DeepSort with MobileNet embeddings — robust across occlusions |
+| 📐 **ROI Zone** | User-defined polygon (zebra crossing) via mouse click |
+| 📸 **Auto Evidence** | Screenshot saved per unique violating vehicle |
+| 🛣️ **Multi-Lane** | All vehicles across all lanes tracked simultaneously |
+| ⚡ **Real-Time** | Frame-by-frame processing on live or recorded video |
 
 ---
 
-## 🖼️ Demo & Screenshots
+## 🖥️ Live Detection Screenshot
 
-> Add your demo screenshots in the `assets/` folder and they will appear here.
+> What the system looks like in real time — vehicles at a red light, with bounding boxes, violation labels, and the zebra crossing ROI polygon drawn on screen:
 
-### 📸 Violation Evidence Screenshots
-*The system automatically saves evidence like this for every detected violation:*
+<div align="center">
 
-```
-Violation_ScreenShots/
-├── violation_1.jpg    ← Vehicle ID 1 caught at red light
-├── violation_7.jpg    ← Vehicle ID 7 caught at red light
-├── violation_23.jpg   ← Vehicle ID 23 caught at red light
-└── ...
-```
+![Violation Demo](assets/violation_demo.svg)
 
-Each screenshot contains:
-- Bounding box around the violating vehicle in **red**
-- Text overlay: `"ID {track_id} - VIOLATED"`
-- Full frame context for evidence
+</div>
 
-### 🎬 Live Detection Preview
-```
-┌──────────────────────────────────────────────────────┐
-│  🔴 Red Light Detected                               │
-│                                                      │
-│  Violators: ID 3, ID 7                               │
-│                                                      │
-│  ┌────────┐  ┌────────┐  ┌──────────────┐           │
-│  │ ID: 1  │  │ ID: 3  │  │   ID: 7      │           │
-│  │ GREEN  │  │  RED   │  │    RED       │           │
-│  └────────┘  └────────┘  └──────────────┘           │
-│                                                      │
-│  ════════ [  ZEBRA CROSSING ROI  ] ══════════        │
-└──────────────────────────────────────────────────────┘
-```
+> 📌 **Replace with your real screenshots** — add actual output images to `assets/` folder:
+> ```markdown
+> ![My Real Output](assets/my_output.jpg)
+> ```
+
+**Color coding on screen:**
+- 🔴 **Red bounding box** → Confirmed violation: vehicle crossed the zebra zone on red
+- 🟢 **Green bounding box** → Tracked vehicle: not in violation zone
+- 🟩 **Green polygon** → User-defined zebra crossing ROI
+- 🔴 **Top-left HUD** → Live violator list + signal state + frame counter
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ System Pipeline
+
+<div align="center">
+
+![System Pipeline](assets/pipeline_diagram.svg)
+
+</div>
 
 ```
-╔══════════════════════════════════════════════════════════════════════╗
-║            TRAFFIC VIOLATION DETECTION PIPELINE                      ║
-╠══════════════════════════════════════════════════════════════════════╣
-║                                                                      ║
-║  📹 Video Input (CCTV / Dashcam footage)                            ║
-║       │                                                              ║
-║       ├──────────────────────────────────────────────────┐          ║
-║       │                                                  │          ║
-║       ▼                                                  ▼          ║
-║  🚦 YOLO Traffic Light Model            📐 Polygon ROI (Zebra)     ║
-║     │ conf=0.5                               (User-defined)         ║
-║     │                                                               ║
-║     ▼                                                               ║
-║  Red Light?                                                          ║
-║     │ YES                                                            ║
-║     ▼                                                                ║
-║  🚗 YOLO Vehicle Detection (conf=0.15)                              ║
-║     │                                                                ║
-║     ▼                                                                ║
-║  🔁 DeepSort Multi-Object Tracker                                   ║
-║     │   max_age=70, n_init=5, embedder=mobilenet                    ║
-║     │                                                                ║
-║     ▼                                                                ║
-║  📐 Polygon Intersection Test (pointPolygonTest)                    ║
-║     │   vehicle center point vs zebra polygon                       ║
-║     │                                                                ║
-║     ├── INSIDE polygon?                                             ║
-║     │       │ YES + new ID?                                         ║
-║     │       ▼                                                        ║
-║     │   📸 Save Violation Screenshot                                ║
-║     │   🔴 Mark ID as Violator                                      ║
-║     │   🖥️  Display on screen                                        ║
-║     │                                                                ║
-║     └── OUTSIDE → Normal tracking (green box)                      ║
-║                                                                      ║
-╚══════════════════════════════════════════════════════════════════════╝
+📹 Video Input
+     │
+     ├──► 🚦 Traffic Light YOLO (conf=0.5)
+     │         │
+     │    Red Light? ──NO──► Skip Frame
+     │         │ YES
+     │         ▼
+     │    🚗 Vehicle YOLO (conf=0.15)
+     │         │
+     │         ▼
+     │    🔁 DeepSort Tracker ──► Persistent Track IDs
+     │         │
+     │         ▼
+     │    📐 pointPolygonTest ──► Inside Zone?
+     │         │ YES (new ID)
+     │         ▼
+     │    📸 Save violation_{id}.jpg
+     │         │
+     └──► 🖥️ Display Live Overlay
 ```
 
 ---
@@ -137,29 +105,37 @@ Each screenshot contains:
 ## ⚙️ How It Works
 
 ### Step 1 — Select the Zebra Crossing Zone
-The user clicks **4 points** on the first video frame to define the violation zone (zebra crossing / stop line). The system draws a polygon and asks for confirmation before processing begins.
+On launch, the first video frame opens. The user **clicks 4 points** to define the violation zone (stop line / zebra crossing). The polygon is drawn in real time and confirmed with `C`. Press `A` to reset and redraw.
 
-### Step 2 — Traffic Light Monitoring
-Every frame is analyzed by the **Traffic Light YOLO model**. The system checks for:
-- `Red` → violation monitoring **ACTIVE** 🔴
-- `RedRight` → violation monitoring **ACTIVE** 🔴
-- `Green` → vehicle tracking **PAUSED** 🟢 (no violation possible)
+```
+Click point 1  →  Click point 2  →  Click point 3  →  Click point 4
+                                                              ↓
+                                                    Press 'C' to confirm
+```
 
-### Step 3 — Vehicle Detection & Tracking (Red Light Only)
-When a red light is detected, the **Vehicle YOLO model** detects all vehicles. These detections are passed to **DeepSort**, which:
-- Assigns persistent unique IDs to each vehicle
-- Maintains IDs across frames using MobileNet appearance embeddings
-- Handles partial occlusions with IoU-based re-identification
+### Step 2 — Traffic Signal Monitoring (Every Frame)
+The **Traffic Light YOLO model** (conf=0.5) classifies the signal state:
 
-### Step 4 — Violation Check
-For each tracked vehicle, the system checks if the vehicle's **center point** falls inside the user-defined polygon using OpenCV's `pointPolygonTest`. If it does during a red light → **VIOLATION**.
+| Signal Detected | System Behavior |
+|:---:|:---|
+| `Red` | 🔴 Violation monitoring **ACTIVE** — vehicle detection starts |
+| `RedRight` | 🔴 Violation monitoring **ACTIVE** |
+| `Green` | 🟢 Vehicle tracking **PAUSED** — no violations possible |
 
-### Step 5 — Evidence Generation
-First-time violators (new IDs crossing for the first time) trigger:
-- Screenshot saved to `Violation_ScreenShots/violation_{ID}.jpg`
-- Red bounding box on screen
-- ID added to permanent `violated_ids` set
-- Violator list displayed in top-left of live feed
+### Step 3 — Vehicle Detection + Persistent Tracking
+When red light is confirmed → **Vehicle YOLO** (conf=0.15) detects all vehicles → passed to **DeepSort** which assigns persistent Track IDs maintained across frames.
+
+### Step 4 — Polygon Intersection Test
+For each tracked vehicle, the center point is tested against the polygon:
+- **Inside polygon during red** = VIOLATION → screenshot saved, ID flagged red
+- **Outside polygon** = normal tracking (green box)
+
+### Step 5 — Auto Evidence Generation
+First-time violators (each unique ID captured only once) trigger:
+- Screenshot saved: `Violation_ScreenShots/violation_{id}.jpg`
+- ID permanently added to `violated_ids` set
+- Red overlay + label on live feed
+- Violator list updated in top-left HUD
 
 ---
 
@@ -167,80 +143,113 @@ First-time violators (new IDs crossing for the first time) trigger:
 
 | Feature | Description |
 |:---|:---|
-| 🎯 **Dual YOLO Models** | Separate specialized models for traffic light and vehicle detection |
-| 📍 **Interactive ROI** | Click-to-define polygon zone — adaptable to any camera angle |
-| 🔢 **Persistent IDs** | Same vehicle keeps same ID even after occlusion |
-| 📸 **Auto Evidence** | No human needed — violations captured and saved automatically |
-| 🔴 **State-Aware** | Vehicle tracking only activates during red light — no false positives |
-| 🛣️ **Multi-Lane** | Handles multiple vehicles across multiple lanes simultaneously |
-| 🖥️ **Live Overlay** | Real-time bounding boxes, IDs, signal state, violator list |
-| 🔄 **Robust Tracking** | `max_age=70` frames tolerance — handles momentary detection gaps |
+| 🎯 **Dual YOLO Models** | Separate specialized models for signal and vehicle detection |
+| 📍 **Interactive ROI** | Click-to-define zone — adapts to any camera angle or intersection |
+| 🔢 **Persistent IDs** | Same vehicle keeps same ID across frames, even through occlusion |
+| 📸 **Auto Evidence** | Each unique violator photographed exactly once — no duplicates |
+| 🔴 **State-Aware** | Tracking only activates on red — zero false positives on green |
+| 🛣️ **Multi-Lane** | Simultaneous monitoring across all lanes |
+| 🖥️ **Live Overlay** | Bounding boxes, Track IDs, signal state, violator list in real time |
+| 🔄 **Occlusion Handling** | `max_age=70` — track survives up to 70 frames without detection |
+
+---
+
+## 📸 Evidence Screenshots
+
+> The system auto-saves evidence like this for every detected violation:
+
+```
+Violation_ScreenShots/
+├── violation_3.jpg    ← Vehicle ID 3  — caught crossing on red
+├── violation_7.jpg    ← Vehicle ID 7  — caught crossing on red
+├── violation_15.jpg   ← Vehicle ID 15 — caught crossing on red
+└── ...
+```
+
+Each screenshot contains:
+- Full frame at the exact moment of violation
+- **Red bounding box** drawn around the violating vehicle
+- Text overlay: `"ID {track_id} - VIOLATED"`
+- All surrounding vehicles visible for context
+
+> 📌 Add your actual violation evidence below by placing images in `assets/Violation_ScreenShots/`:
+> ```markdown
+> | Violation 1 | Violation 2 | Violation 3 |
+> |:-----------:|:-----------:|:-----------:|
+> | ![](assets/Violation_ScreenShots/violation_3.jpg) | ![](assets/Violation_ScreenShots/violation_7.jpg) | ![](assets/Violation_ScreenShots/violation_15.jpg) |
+> ```
 
 ---
 
 ## 🔬 Pipeline Breakdown
 
-### 1. Zebra Crossing ROI Selection
+### Zebra Crossing ROI (Mouse-Click Polygon)
 
 ```python
-# User clicks 4 points on first video frame
-# System maps display coordinates → original video coordinates
-orig_x = int(x / scale_x)   # reverse scaling
-orig_y = int(y / scale_y)
+def zebra_crossing_roi(video_path, display_width=1280, display_height=720):
+    # Shows first frame at display resolution
+    # User clicks 4 points → mapped back to original video coordinates
+    scale_x = display_width / orig_width
+    scale_y = display_height / orig_height
 
-# On 4th click → polygon is closed
-# Press 'c' → confirm | Press 'a' → reset and re-draw
+    # On every click — reverse the scaling
+    orig_x = int(x / scale_x)
+    orig_y = int(y / scale_y)
+    # Press 'c' to confirm | 'a' to reset | 'q' to quit
+    return np.array(points)     # Shape: (4, 2)
 ```
 
-### 2. Traffic Light Detection
+### Traffic Light Detection
 
 ```python
-traffic_results = traffic_light_model.predict(frame, conf=0.5)
+traffic_results = traffic_light_model.predict(frame, conf=0.5, verbose=False)
 
-# Labels checked:
-if label in ['Red', 'RedRight']:
-    red_light = True   # Activate violation monitoring
+for r in traffic_results:
+    for box_obj in r.boxes:
+        label = r.names[int(box_obj.cls[0])]
+        if label in ['Red', 'RedRight']:
+            red_light = True    # Activate violation monitoring
 ```
 
-### 3. Vehicle Detection + DeepSort Tracking
+### Vehicle Detection + DeepSort Tracking
 
 ```python
-# YOLO detections → DeepSort format: [x, y, w, h]
+# Format YOLO detections for DeepSort: [x, y, w, h]
 detections.append(([x1, y1, x2-x1, y2-y1], conf, "vehicle"))
 
-# DeepSort assigns persistent Track IDs
+# DeepSort assigns and maintains persistent Track IDs
 tracks = tracker.update_tracks(detections, frame=frame)
 ```
 
-DeepSort Configuration:
+**DeepSort Configuration:**
+
 ```python
 tracker = DeepSort(
-    max_age=70,           # Keep track alive for 70 frames without detection
-    n_init=5,             # Confirm track after 5 consecutive detections
-    max_iou_distance=0.5, # IoU threshold for track association
-    embedder="mobilenet"  # Appearance feature extractor
+    max_age=70,             # Keep track alive 70 frames without detection
+    n_init=5,               # Confirm track after 5 consecutive detections
+    max_iou_distance=0.5,   # IoU threshold for track association
+    embedder="mobilenet"    # MobileNet appearance embeddings for re-id
 )
 ```
 
-### 4. Violation Detection Logic
+### Violation Detection & Evidence
 
 ```python
 def is_vehicle_crossing(box, polygon_points):
     x_center = int((box[0] + box[2]) / 2)
     y_center = int((box[1] + box[3]) / 2)
-    # Returns True if vehicle center is inside polygon
+    # >= 0 → inside or on border = VIOLATION
     return cv2.pointPolygonTest(polygon_points, (x_center, y_center), False) >= 0
-```
 
-### 5. Evidence Screenshot
-
-```python
-if is_vehicle_crossing(...) and track_id not in violated_ids:
-    violated_ids.add(track_id)   # Mark as violated (only capture once per vehicle)
-    ss = frame.copy()
-    cv2.rectangle(ss, (x1, y1), (x2, y2), (0, 0, 255), 3)
-    cv2.putText(ss, f"ID {track_id} - VIOLATED", ...)
-    cv2.imwrite(f"Violation_ScreenShots/violation_{track_id}.jpg", ss)
+# In main loop:
+if is_vehicle_crossing([x1,y1,x2,y2], polygon_points):
+    if track_id not in violated_ids:
+        violated_ids.add(track_id)                    # Permanent — capture once only
+        ss = frame.copy()
+        cv2.rectangle(ss, (x1,y1),(x2,y2),(0,0,255),3)
+        cv2.putText(ss, f"ID {track_id} - VIOLATED", (10,50),
+                    cv2.FONT_HERSHEY_SIMPLEX, 1, (0,0,255), 3)
+        cv2.imwrite(f"Violation_ScreenShots/violation_{track_id}.jpg", ss)
 ```
 
 ---
@@ -251,19 +260,20 @@ if is_vehicle_crossing(...) and track_id not in violated_ids:
 Traffic_Signal_Violation_Detection/
 │
 ├── 📂 NoteBook/
-│   └── main.py                          # Main pipeline script
+│   └── main.py                           # Main detection pipeline
 │
 ├── 📂 Models/
-│   ├── vehicle_detection.pt             # Custom YOLO vehicle detection model
-│   └── Traffic_Light_Detection.pt       # Custom YOLO traffic light model
+│   ├── vehicle_detection.pt              # Custom YOLO vehicle model
+│   └── Traffic_Light_Detection.pt        # Custom YOLO traffic light model
 │
-├── 📂 Violation_ScreenShots/            # Auto-generated evidence folder
-│   ├── violation_1.jpg
+├── 📂 Violation_ScreenShots/             # Auto-generated evidence folder
+│   ├── violation_3.jpg
 │   ├── violation_7.jpg
 │   └── ...
 │
-├── 📂 assets/                           # Demo images / GIFs for README
-│   └── demo.gif
+├── 📂 assets/                            # README images & diagrams
+│   ├── violation_demo.svg                # Live detection demo screenshot
+│   └── pipeline_diagram.svg             # System architecture diagram
 │
 └── README.md
 ```
@@ -273,10 +283,9 @@ Traffic_Signal_Violation_Detection/
 ## 🛠️ Installation & Setup
 
 ### Prerequisites
-
 - Python **3.9+**
-- GPU recommended (CUDA) for real-time performance
-- CCTV / dashcam video file for testing
+- GPU recommended (NVIDIA CUDA) for real-time performance
+- Video file (CCTV footage / MP4)
 
 ### 1. Clone the Repository
 
@@ -300,60 +309,48 @@ source venv/bin/activate
 ### 3. Install Dependencies
 
 ```bash
-pip install ultralytics
-pip install deep-sort-realtime
-pip install opencv-python
-pip install numpy
-```
-
-Or install everything at once:
-
-```bash
 pip install ultralytics deep-sort-realtime opencv-python numpy
 ```
 
 ### 4. Add Model Files
 
-Place your trained YOLO models inside the `Models/` folder:
-
 ```
 Models/
-├── vehicle_detection.pt
-└── Traffic_Light_Detection.pt
+├── vehicle_detection.pt          ← Trained YOLO vehicle detection model
+└── Traffic_Light_Detection.pt    ← Trained YOLO traffic light model
 ```
 
-> ⚠️ Models are not included in this repository due to file size. Train your own or contact the author.
+> ⚠️ Model weights are not included due to file size. Train using YOLO or contact the author.
 
 ---
 
 ## 🚀 How to Run
 
-### Basic Usage
+### Update the Video Path
+
+Open `NoteBook/main.py` and update:
+
+```python
+video_path = r"path/to/your/video.mp4"
+```
+
+### Run
 
 ```bash
 cd NoteBook
 python main.py
 ```
 
-### Update the Video Path
-
-Open `main.py` and update this line with your video file path:
-
-```python
-video_path = r"path/to/your/video.mp4"
-```
-
 ### Runtime Controls
 
-| Step | Action |
-|:---|:---|
-| **1** | Window opens showing first video frame |
-| **2** | Click **4 points** to define the zebra crossing polygon |
-| **3** | Press **`C`** to confirm the zone |
-| **4** | Press **`A`** to reset and redraw if unhappy |
-| **5** | Press **`Q`** to quit at any time |
+| Key | Action |
+|:---:|:---|
+| **Left Click × 4** | Define zebra crossing polygon on first frame |
+| **`C`** | Confirm drawn zone — start processing |
+| **`A`** | Reset polygon — redraw from scratch |
+| **`Q`** | Quit at any time |
 
-### Expected Output
+### Expected Console Output
 
 ```
 Screenshot saved: .\Violation_ScreenShots\violation_3.jpg
@@ -361,55 +358,42 @@ Screenshot saved: .\Violation_ScreenShots\violation_7.jpg
 Screenshot saved: .\Violation_ScreenShots\violation_15.jpg
 ```
 
-- Live video window shows bounding boxes + IDs
-- Red boxes = confirmed violators
-- Green boxes = non-violating tracked vehicles
-- Top-left overlay shows current violator IDs in real time
-
 ---
 
 ## 🔧 Technical Details
 
 ### Why `conf=0.15` for Vehicle Detection?
-
-Dense urban traffic scenes have many partially occluded vehicles. A lower confidence threshold ensures:
-- Partially visible vehicles are detected early
+Dense urban traffic has many partially occluded vehicles. Lower confidence ensures:
+- Partially visible vehicles detected early
 - Vehicles at frame edges are captured
-- No missed violations due to occlusion
+- No missed violations due to partial visibility
 
-The tracking layer (`n_init=5`) acts as the quality filter — only vehicles confirmed across 5 frames are assigned IDs, preventing false positive tracks.
+The `n_init=5` DeepSort parameter acts as the quality filter — only vehicles confirmed across 5 consecutive frames get a stable Track ID.
 
-### Why DeepSort over ByteTrack?
+### Why DeepSort + MobileNet Embeddings?
+DeepSort uses **visual appearance features** alongside IoU matching:
+- Vehicles that disappear temporarily are **re-identified visually** — same ID maintained
+- Critical for multi-lane scenarios where vehicles cross each other's paths
+- `max_age=70` means a vehicle can be hidden for ~2.3 seconds (30fps) and still recover its ID
 
-DeepSort uses **MobileNet appearance embeddings** alongside IoU matching. This means:
-- Vehicles that temporarily leave the frame (overtaken, occluded) are **re-identified** using visual features
-- Same vehicle gets the **same ID** even after disappearing for up to **70 frames**
-- Critical for multi-lane scenarios with crossing paths
-
-### Polygon Test (OpenCV)
-
+### Center-Point Polygon Test
 ```python
-cv2.pointPolygonTest(polygon, point, measureDist=False)
-# Returns: >= 0 → inside or on border (VIOLATION)
-#          <  0 → outside (safe)
+# Uses VEHICLE CENTER POINT — not corners
+# Prevents false triggers from adjacent vehicles
+x_center = (x1 + x2) / 2
+y_center = (y1 + y2) / 2
+cv2.pointPolygonTest(polygon, (x_center, y_center), False)  # >= 0 = inside
 ```
 
-Using the **center point** of the bounding box rather than corners prevents false triggers from vehicles adjacent to the zone.
-
-### Scale-Aware ROI Selection
-
-The system displays video at 1280×720 for user interaction, but internally maps all clicks back to original video resolution:
-
+### Scale-Aware Interactive ROI
+Display resolution ≠ video resolution. All clicks are mapped back accurately:
 ```python
-scale_x = display_width / orig_width
-scale_y = display_height / orig_height
+scale_x = display_width / orig_width    # e.g., 1280/1920 = 0.667
+scale_y = display_height / orig_height  # e.g.,  720/1080 = 0.667
 
-# Reverse mapping on click
-orig_x = int(x / scale_x)
-orig_y = int(y / scale_y)
+orig_x = int(click_x / scale_x)        # Reverse scale on click
+orig_y = int(click_y / scale_y)        # Polygon accurate at any display size
 ```
-
-This ensures the polygon is accurate regardless of display resolution.
 
 ---
 
@@ -426,13 +410,13 @@ numpy>=1.24
 
 ## 🔮 Future Improvements
 
-- [ ] Add **license plate OCR** for vehicle identification
-- [ ] Integrate **timestamp overlay** on violation screenshots
-- [ ] Export **violation report as PDF/CSV** with ID, time, frame number
-- [ ] Add support for **live RTSP camera streams**
-- [ ] Add **speed estimation** alongside red-light violation
-- [ ] Web dashboard for viewing all violations in real time
-- [ ] Multi-camera support for intersection coverage
+- [ ] License plate OCR for vehicle registration identification
+- [ ] Timestamp + GPS overlay on violation screenshots
+- [ ] Violation report export as CSV / PDF
+- [ ] Live RTSP IP camera stream support
+- [ ] Speed estimation alongside red-light detection
+- [ ] Multi-camera intersection coverage
+- [ ] Web dashboard for reviewing all violations
 
 ---
 
@@ -452,10 +436,10 @@ numpy>=1.24
 ### 🚀 More Projects
 
 | Project | Description | Link |
-|:---:|:---:|:---:|
-| ⚡ PowerGuard AI | Electricity Theft Detection — Live SCADA System | [🤗 Live Demo](https://huggingface.co/spaces/Uqasha/FYP-Electricity_Theft_Detection) |
-| 🕹️ Action Recognition | Real-Time Gaming Interface via Body Gestures | [GitHub](https://github.com/uqasha524) |
-| 👁️ Facial Attendance | AI Biometric Attendance for 100+ Users | [GitHub](https://github.com/uqasha524) |
+|:---:|:---|:---:|
+| ⚡ **PowerGuard AI** | Dual-stage deep learning SCADA for electricity theft detection in Pakistan's power grid | [🤗 Live Demo](https://huggingface.co/spaces/Uqasha/FYP-Electricity_Theft_Detection) |
+| 🕹️ **Action Recognition** | Real-time gaming interface via full-body gestures — 99.69% accuracy | [GitHub](https://github.com/uqasha524) |
+| 👁️ **Facial Attendance** | AI biometric attendance system deployed for 100+ users | [GitHub](https://github.com/uqasha524) |
 
 </div>
 
@@ -467,8 +451,8 @@ numpy>=1.24
 
 ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=python&logoColor=white)
 ![OpenCV](https://img.shields.io/badge/OpenCV-27338e?style=flat-square&logo=OpenCV&logoColor=white)
-![YOLO](https://img.shields.io/badge/YOLOv8-111111?style=flat-square&logo=yolo&logoColor=00FFFF)
+![YOLO](https://img.shields.io/badge/YOLO-111111?style=flat-square&logoColor=00FFFF)
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:ff0040,100:ff8800&height=100&section=footer" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:cc0000,100:ff8800&height=100&section=footer" width="100%"/>
 
 </div>
