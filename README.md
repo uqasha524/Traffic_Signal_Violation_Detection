@@ -175,7 +175,7 @@ Each screenshot contains:
 > ```markdown
 > | Violation 1 | Violation 2 | Violation 3 |
 > |:-----------:|:-----------:|:-----------:|
-> | ![](assets/Violation_ScreenShots/violation_100.jpg) | ![](assets/Violation_ScreenShots/violation_vehicle_65_frame158.jpg) | ![](assets/Violation_ScreenShots/violation_vehicle_68_frame157.jpg) | ![](assets/Violation_ScreenShots/violation_vehicle_69_frame157.jpg)
+> | ![](Violation_ScreenShots/violation_100.jpg) | ![](Violation_ScreenShots/violation_vehicle_65_frame158.jpg) | ![](Violation_ScreenShots/violation_vehicle_68_frame157.jpg) | ![](Violation_ScreenShots/violation_vehicle_69_frame157.jpg)
 > ```
 
 ---
